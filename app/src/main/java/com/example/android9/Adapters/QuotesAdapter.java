@@ -3,6 +3,7 @@ package com.example.android9.Adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.speech.tts.TextToSpeech;
+import android.speech.tts.Voice;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,7 @@ public class QuotesAdapter extends RecyclerView.Adapter<QuotesAdapter.QuotesHold
             }
         });
         tts.setLanguage(Locale.forLanguageTag("hi"));
+        tts.setPitch(1);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
