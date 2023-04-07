@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -28,6 +29,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.android9.Adapters.QuotesAdapter;
+import com.example.android9.Clicks.QuotesClick;
 import com.example.android9.R;
 import com.example.android9.Utils.Utils;
 
@@ -45,8 +47,18 @@ public class MainActivity extends AppCompatActivity {
 
         rcvList = findViewById(R.id.rcvList);
 
+        QuotesClick click = new QuotesClick() {
+            @Override
+            public void getQuote(String quote) {
+                Intent intent = new Intent(MainActivity.this, QuotesActivity.class);
+                intent.putExtra("quote",quote);
+                startActivity(intent);
+
+            }
+        };
+
         RecyclerView.LayoutManager manager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
-        QuotesAdapter adapter = new QuotesAdapter(Utils.quotes);
+        QuotesAdapter adapter = new QuotesAdapter(Utils.quotes,click);
         rcvList.setLayoutManager(manager);
         rcvList.setAdapter(adapter);
 

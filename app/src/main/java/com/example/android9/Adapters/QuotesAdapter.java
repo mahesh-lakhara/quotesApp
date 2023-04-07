@@ -3,16 +3,15 @@ package com.example.android9.Adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.speech.tts.TextToSpeech;
-import android.speech.tts.Voice;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.android9.Clicks.QuotesClick;
 import com.example.android9.R;
 
 import java.util.Locale;
@@ -20,9 +19,11 @@ import java.util.Locale;
 public class QuotesAdapter extends RecyclerView.Adapter<QuotesAdapter.QuotesHolder>{
 
     String[] quotes;
+    QuotesClick click;
     Context context;
-    public QuotesAdapter(String[] quotes) {
+    public QuotesAdapter(String[] quotes, QuotesClick click) {
         this.quotes = quotes;
+        this.click = click;
     }
     @NonNull
     @Override
@@ -41,12 +42,14 @@ public class QuotesAdapter extends RecyclerView.Adapter<QuotesAdapter.QuotesHold
             }
         });
         tts.setLanguage(Locale.forLanguageTag("hi"));
-        tts.setPitch(1);
+        tts.setPitch(0.2f);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, ""+quotes[position], Toast.LENGTH_SHORT).show();
-                tts.speak(quotes[position], TextToSpeech.QUEUE_ADD, null,null);
+
+                click.getQuote(quotes[position]);
+//                Toast.makeText(context, ""+quotes[position], Toast.LENGTH_SHORT).show();
+//                tts.speak(quotes[position], TextToSpeech.QUEUE_ADD, null,null);
             }
         });
 
